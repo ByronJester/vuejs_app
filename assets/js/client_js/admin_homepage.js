@@ -272,12 +272,6 @@ var product = new Vue({
 			})
 		},
 
-		set_page: function(item){
-			this.get_product()
-			this.index = item * this.item_per_page
-			this.product_body = this.product_body.slice(this.index, this.index + this.item_per_page)
-		},
-
 		input_search: function(){
 			bodyFormData.set('find_item', this.find_item)
 
@@ -286,16 +280,16 @@ var product = new Vue({
 				url: base_url + "AdminManagement/Homepage/searchItem",
 				data: bodyFormData
 			}).then(response => {
-				this.product_body = response.data
+				this.product_body = response.data.slice(this.index, this.index + this.item_per_page)
 			}).catch(error => {
 
 			})
 		},
 
-		delete_search: function(){
-			if(this.find_item == ''){
-				this.getProduct()
-			}
+		set_page: function(item){
+			this.get_product()
+			this.index = item * this.item_per_page
+			this.product_body = this.product_body.slice(this.index, this.index + this.item_per_page)
 		},
 
 		delete_product: function(id){

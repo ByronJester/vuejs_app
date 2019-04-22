@@ -61,7 +61,7 @@
 							<div class = "col-sm-12" >
 								<div class = "row" id = "prod_tbl"> 
 									<div class="well well-sm">
-										<input type = "text" v-model= "find_item" name ='find_item' v-on:keyup = "input_search" class ="form-control" style="width: 20%; margin-bottom: 10px" placeholder="Search Item"  v-on:keyup.delete = "delete_search">
+										<input type = "text" v-model= "find_item" name ='find_item' v-on:keyup = "input_search" class ="form-control" style="width: 20%; margin-bottom: 10px" placeholder="Search Item" >
 										<table>
 											<tr v-for = "head in product_head">
 												<th>{{head.name}}</th>
