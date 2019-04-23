@@ -243,7 +243,9 @@ var product = new Vue({
 		page_number  	: 0,
 		find_item 	 	: '',
 		item_per_page	: 5,
-		index 				: 0
+		index 				: 0,
+		find_categ    : ''
+
 	},
 	created: function(){
 		this.get_product()
@@ -280,10 +282,59 @@ var product = new Vue({
 				url: base_url + "AdminManagement/Homepage/searchItem",
 				data: bodyFormData
 			}).then(response => {
-				this.product_body = response.data.slice(this.index, this.index + this.item_per_page)
+
+				if(this.find_item != ''){
+					this.product_body = response.data
+
+					var page = this.product_body.length / this.item_per_page
+
+					if((page - Math.floor(page)) != 0 ){
+	 					this.page_number = Math.trunc(page) + 1
+					}else{
+						this.page_number = page
+					}
+
+					this.product_body = this.product_body.slice(this.index, this.index + this.item_per_page)
+				}else{
+					this.get_product()
+				}
+				
 			}).catch(error => {
 
 			})
+		},
+
+		input_categ: function(){
+			bodyFormData.set('find_categ', this.find_categ)
+
+			axios({
+				method: 'POST',
+				url: base_url + "AdminManagement/Homepage/searchCategory",
+				data: bodyFormData
+			}).then(response => {
+				if(this.find_categ != ''){
+					this.product_body = response.data
+
+					var page = this.product_body.length / this.item_per_page
+
+					if((page - Math.floor(page)) != 0 ){
+	 					this.page_number = Math.trunc(page) + 1
+					}else{
+						this.page_number = page
+					}
+
+					this.product_body = this.product_body.slice(this.index, this.index + this.item_per_page)
+				}else{
+					this.get_product()
+				}
+				
+				
+				
+
+			}).catch(error => {
+
+			})
+
 		},
 
 		set_page: function(item){

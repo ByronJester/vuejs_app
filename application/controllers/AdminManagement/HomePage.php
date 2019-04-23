@@ -255,4 +255,33 @@ class HomePage extends CI_Controller {
 
   }
 
+  #Search by Category
+  public function searchCategory(){
+    $config = [
+        [
+               'field' => 'find_categ',
+               'label' => 'Item Name',
+               'rules' => 'trim|htmlspecialchars'
+        ]
+    ];
+
+    $this->form_validation->set_rules($config);
+
+    if($this->form_validation->run() === false){
+      $res = [
+        'msg'     => validation_errors(),
+        'code'    => 0,
+      ];
+
+      echo json_encode($res);
+    }else{
+      $item = $this->input->post('find_categ');
+
+      $product = $this->admin->searchCategory($item);
+
+      echo json_encode($product);
+    }
+
+  }
+
 }

@@ -70,5 +70,13 @@ class admin_management_model extends CI_Model {
 		return $q->result_array();
 	}
 
+	#Search by Category
+	public function searchCategory($item){
+		$sql = "SELECT * FROM product_tbl WHERE item_category = ?";
+		$q   = $this->db->query($sql, [$item]);
+
+		return $q->result_array();
+	}
+
 
 }

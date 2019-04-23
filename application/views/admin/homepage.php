@@ -61,7 +61,29 @@
 							<div class = "col-sm-12" >
 								<div class = "row" id = "prod_tbl"> 
 									<div class="well well-sm">
-										<input type = "text" v-model= "find_item" name ='find_item' v-on:keyup = "input_search" class ="form-control" style="width: 20%; margin-bottom: 10px" placeholder="Search Item" >
+
+										<div class="row">
+											<div class="col-xs-6">
+												<input type = "text" v-model= "find_item" name ='find_item' v-on:keyup = "input_search" class ="form-control" style="width: 50%; margin-bottom: 10px" placeholder="Search Item" >
+											</div>
+
+											<div class="col-xs-6">
+												<input list="browsers" v-model = "find_categ" name = "find_categ" v-on:keyup = "input_categ" class ="form-control" style="width: 40%; float: right; margin-bottom: 10px" placeholder="Select Category">
+					              <datalist id="browsers">
+					                <option value="Clothes">
+					                <option value="Gadgets">
+					                <option value="Furniture">
+					                <option value="School Supplies">
+					                <option value="Food">
+					              </datalist>
+											</div>
+										</div>
+										
+
+										<ul class="pagination" v-for = "item in page_number">
+									    <li><a href="#" v-on:click.prevent.stop = "set_page((item - 1 ))">{{item}}</a></li>
+									  </ul>
+
 										<table>
 											<tr v-for = "head in product_head">
 												<th>{{head.name}}</th>
@@ -88,10 +110,6 @@
 								    	</tr>
 										</table>
 									</div>
-
-									<ul class="pagination" v-for = "item in page_number">
-								    <li><a href="#" v-on:click.prevent.stop = "set_page((item - 1 ))">{{item}}</a></li>
-								  </ul>
 
 								  <div class="modal fade" id="myModal" role="dialog">
 								    <div class="modal-dialog">
