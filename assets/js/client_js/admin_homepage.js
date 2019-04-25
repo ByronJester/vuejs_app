@@ -147,7 +147,7 @@ var product_management = new Vue({
 
       reader.onload = (e) => {
         this.product_img = e.target.result
-      };
+      }
       reader.readAsDataURL(files[0])
 
       bodyFormData.set('img_id', files[0])
@@ -245,7 +245,6 @@ var product = new Vue({
 		item_per_page	: 5,
 		index 				: 0,
 		find_categ    : ''
-
 	},
 	created: function(){
 		this.get_product()
@@ -257,9 +256,7 @@ var product = new Vue({
 				method: 'POST',
 				url: base_url + "AdminManagement/Homepage/getProduct"
 			}).then(response =>{ 
-				this.product_body = response.data
-
-				var page = this.product_body.length / this.item_per_page
+				var page = response.data.length / this.item_per_page
 
 				if((page - Math.floor(page)) != 0 ){
  					this.page_number = Math.trunc(page) + 1
@@ -267,8 +264,7 @@ var product = new Vue({
 					this.page_number = page
 				}
 
-				this.product_body = this.product_body.slice(this.index, this.index + this.item_per_page)
-
+				this.product_body = response.data.slice(this.index, this.index + this.item_per_page)
 			}).catch(error =>{
 
 			})
@@ -282,11 +278,8 @@ var product = new Vue({
 				url: base_url + "AdminManagement/Homepage/searchItem",
 				data: bodyFormData
 			}).then(response => {
-
 				if(this.find_item != ''){
-					this.product_body = response.data
-
-					var page = this.product_body.length / this.item_per_page
+					var page = response.data.length / this.item_per_page
 
 					if((page - Math.floor(page)) != 0 ){
 	 					this.page_number = Math.trunc(page) + 1
@@ -294,7 +287,7 @@ var product = new Vue({
 						this.page_number = page
 					}
 
-					this.product_body = this.product_body.slice(this.index, this.index + this.item_per_page)
+					this.product_body = response.data.slice(this.index, this.index + this.item_per_page)
 				}else{
 					this.get_product()
 				}
@@ -313,9 +306,7 @@ var product = new Vue({
 				data: bodyFormData
 			}).then(response => {
 				if(this.find_categ != ''){
-					this.product_body = response.data
-
-					var page = this.product_body.length / this.item_per_page
+					var page = response.data.length / this.item_per_page
 
 					if((page - Math.floor(page)) != 0 ){
 	 					this.page_number = Math.trunc(page) + 1
@@ -323,13 +314,10 @@ var product = new Vue({
 						this.page_number = page
 					}
 
-					this.product_body = this.product_body.slice(this.index, this.index + this.item_per_page)
+					this.product_body = response.data.slice(this.index, this.index + this.item_per_page)
 				}else{
 					this.get_product()
 				}
-				
-				
-				
 
 			}).catch(error => {
 
@@ -338,7 +326,14 @@ var product = new Vue({
 		},
 
 		set_page: function(item){
-			this.get_product()
+			if(this.find_categ == '' && this.find_item == ''){
+				this.get_product()
+			}else if(this.find_item != ''){
+				this.input_search()
+			}else if(this.find_categ != ''){
+				this.input_categ()
+			}
+
 			this.index = item * this.item_per_page
 			this.product_body = this.product_body.slice(this.index, this.index + this.item_per_page)
 		},

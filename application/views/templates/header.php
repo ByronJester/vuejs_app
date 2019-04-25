@@ -63,7 +63,6 @@
     display: block;
     font-size: 16px;
     text-align: center;
-
 }
 
 
@@ -142,6 +141,13 @@ td {
   padding-bottom: 0px !important;
 }
 
+#customer_account{
+  margin-top: 15%;
+}
+
+.modal-title{
+  text-align: center;
+}
 
 </style>
 

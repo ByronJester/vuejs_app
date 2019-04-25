@@ -21,7 +21,7 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		$this->load->view('templates/header');
-	  $this->load->view('account_management/user_profile'); 
+	  $this->load->view('account_management/customer_account'); 
 	  $this->load->view('templates/footer');
 	}
 }

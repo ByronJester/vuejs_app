@@ -16,12 +16,12 @@ class HomePage extends CI_Controller {
 
 	public function index(){
 		if($this->session->userdata('logged_in')){
-    		$this->load->view('templates/header');
-    	  	$this->load->view('admin/homepage'); 
-    	  	$this->load->view('templates/footer');
-    	}else{
-            redirect(base_url());
-    	}
+  		$this->load->view('templates/header');
+  	  $this->load->view('admin/homepage'); 
+  	  $this->load->view('templates/footer');
+  	}else{
+      redirect(base_url() . 'admin');
+  	}
 	}
 
 

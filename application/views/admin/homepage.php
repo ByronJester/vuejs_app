@@ -79,67 +79,73 @@
 											</div>
 										</div>
 										
+										<div class="row">
+											<div class = "col-xs-12">
+												<ul class="pagination" v-for = "item in page_number">
+											    <li><a href="#" v-on:click.prevent.stop = "set_page((item - 1 ))">{{item}}</a></li>
+											  </ul>
 
-										<ul class="pagination" v-for = "item in page_number">
-									    <li><a href="#" v-on:click.prevent.stop = "set_page((item - 1 ))">{{item}}</a></li>
-									  </ul>
+												<table>
+													<tr v-for = "head in product_head">
+														<th>{{head.name}}</th>
+											      <th>{{head.categ}}</th>
+											      <th>{{head.date}}</th>
+											      <th>{{head.qnty}}</th>
+											      <th>{{head.prc}}</th>
+											      <th>{{head.img}}</th>
+											      <th>{{head.act}}</th>
+													</tr>
+													<tr v-for="row in product_body">
+											      <td>{{row.item_name}}</td>
+											      <td>{{row.item_category}}</td>
+											      <td>{{row.date_posted}}</td>
+											      <td>{{row.product_qty}}</td>
+											      <td>{{row.product_prc}}</td>
+											      <td>
+											      	<img :src= `<?php echo base_url()?>uploads/${row.product_img}` class = "tbl-img">
+											      </td>
+											      <td>
+											      	<input type="submit" class="btn btn-primary" v-on:click = "edit_product(row.product_id)" name = "btn_edit" value="Update" data-toggle="modal" data-target="#myModal">
+											      	<input type="submit" class="btn btn-danger" v-on:click = "delete_product(row.product_id)" name = "btn_del" value="Delete">
+											      </td>
+										    	</tr>
+												</table>
+											</div>
 
-										<table>
-											<tr v-for = "head in product_head">
-												<th>{{head.name}}</th>
-									      <th>{{head.categ}}</th>
-									      <th>{{head.date}}</th>
-									      <th>{{head.qnty}}</th>
-									      <th>{{head.prc}}</th>
-									      <th>{{head.img}}</th>
-									      <th>{{head.act}}</th>
-											</tr>
-											<tr v-for="row in product_body">
-									      <td>{{row.item_name}}</td>
-									      <td>{{row.item_category}}</td>
-									      <td>{{row.date_posted}}</td>
-									      <td>{{row.product_qty}}</td>
-									      <td>{{row.product_prc}}</td>
-									      <td>
-									      	<img :src= `<?php echo base_url()?>uploads/${row.product_img}` class = "tbl-img">
-									      </td>
-									      <td>
-									      	<input type="submit" class="btn btn-primary" v-on:click = "edit_product(row.product_id)" name = "btn_edit" value="Update" data-toggle="modal" data-target="#myModal">
-									      	<input type="submit" class="btn btn-danger" v-on:click = "delete_product(row.product_id)" name = "btn_del" value="Delete">
-									      </td>
-								    	</tr>
-										</table>
-									</div>
+										  <div class="modal fade" id="myModal" role="dialog">
+										    <div class="modal-dialog">
+										      <div class="modal-content">
+										        <div class="modal-header">
+										          <button type="button" class="close" data-dismiss="modal">&times;</button>
+										          <h4 class="modal-title">Edit Item</h4>
+										        </div>
+										        <div class="col-sm-12">
+											        <div class="modal-body">
+											        	<div class = "col-sm-6">
+											        		<item-name name = "upd_name" 		v-model = "item_name" placeholder = "Item Name"></item-name>
+												          <list-product name = "upd_list" v-model = "category" placeholder = "Item Category"></list-product>
+												          <product-date name = "upd_date" v-model = "date_posted"></product-date>
+												          <product-qty name = "upd_qty" 	v-model = "product_qty" placeholder = "Item Quantity"></product-qty>
+												          <product-prc name = "upd_prc" 	v-model = "product_prc" placeholder = "Item Price"></product-prc>
+											        	</div>
+											          <div class = "col-sm-6">
+											          	<img :src="product_img" style="height: 200px">
+											          	<product-img v-on:change.native.prevent = "upd_img" name = "upd_img"></product-img>
+											          </div>
+											        </div>
+										        </div>
+										        <div class="modal-footer">
+										        	<input type="submit" class="btn btn-success" name = "edit_submit" v-on:click = "up_btn" value="Update">
+										          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										        </div>
+										      </div>
+										    </div>
+										  </div>  
 
-								  <div class="modal fade" id="myModal" role="dialog">
-								    <div class="modal-dialog">
-								      <div class="modal-content">
-								        <div class="modal-header">
-								          <button type="button" class="close" data-dismiss="modal">&times;</button>
-								          <h4 class="modal-title">Edit Item</h4>
-								        </div>
-								        <div class="col-sm-12">
-									        <div class="modal-body">
-									        	<div class = "col-sm-6">
-									        		<item-name name = "upd_name" 		v-model = "item_name" placeholder = "Item Name"></item-name>
-										          <list-product name = "upd_list" v-model = "category" placeholder = "Item Category"></list-product>
-										          <product-date name = "upd_date" v-model = "date_posted"></product-date>
-										          <product-qty name = "upd_qty" 	v-model = "product_qty" placeholder = "Item Quantity"></product-qty>
-										          <product-prc name = "upd_prc" 	v-model = "product_prc" placeholder = "Item Price"></product-prc>
-									        	</div>
-									          <div class = "col-sm-6">
-									          	<img :src="product_img" style="height: 200px">
-									          	<product-img v-on:change.native.prevent = "upd_img" name = "upd_img"></product-img>
-									          </div>
-									        </div>
-								        </div>
-								        <div class="modal-footer">
-								        	<input type="submit" class="btn btn-success" name = "edit_submit" v-on:click = "up_btn" value="Update">
-								          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-								        </div>
-								      </div>
-								    </div>
-								  </div>             
+											</div>
+										</div>
+										
+								             
 								</div>
 
 							</div>
