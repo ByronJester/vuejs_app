@@ -238,7 +238,7 @@
 								      <td>{{body.status}}</td>
 								      <td>
 								      	<span class="btn btn-primary glyphicon glyphicon-ok" v-on:click.prevent = "acceptCart(body.cart_id)"></span>
-								      	<span class="btn btn-danger  glyphicon glyphicon-remove"></span>
+								      	<span class="btn btn-danger  glyphicon glyphicon-remove" v-on:click.prevent = "cancelCart(body.cart_id)"></span>
 								      </td>
 							    	</tr>
 									</table>

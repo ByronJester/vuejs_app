@@ -119,5 +119,13 @@ class admin_management_model extends CI_Model {
   	return $q;
   }
 
+  #Cancel Cart Request
+  public function cancelCart($cart_id){
+  	$sql = "UPDATE cart_tbl SET status = 'canceled' WHERE cart_id = ?";
+  	$q 	 = $this->db->query($sql, [$cart_id]);
+
+  	return $q;
+  }
+
 
 }

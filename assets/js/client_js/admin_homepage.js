@@ -539,7 +539,6 @@ var cart_tbl = new Vue({
 					url: base_url + "AdminManagement/HomePage/acceptCart",
 					data: bodyFormData
 				}).then(response =>{
-					console.log(response.data.code)
 					if(response.data.code > 0){
 						swal({
 			        title: 'Good Job!',
@@ -573,6 +572,62 @@ var cart_tbl = new Vue({
       }, cancel =>{
 
       })
+		},
+
+		cancelCart: function(id){
+			bodyFormData.set('cart_id', id)
+
+			swal({
+        title: 'Warning!',
+        type: 'warning', 
+        html: `<b>Are you sure you want to ignore this request ?</b>`,
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText:'OKAY',
+        cancelButtonText:'Cancel',
+      }).then(confirm => {
+      	axios({
+      		method: 'POST',
+      		url: base_url + "AdminManagement/HomePage/cancelCart",
+      		data: bodyFormData
+      	}).then(response =>{
+      		if(response.data.code > 0){
+						swal({
+			        title: 'Done!',
+			        type: 'success', 
+			        html: `<b>${response.data.msg}</b>`,
+			        showCloseButton: true,
+			        showCancelButton: false,
+			        focusConfirm: false,
+			        confirmButtonText:'OKAY',
+			        cancelButtonText:'Cancel',
+			      }).then(x => {
+			      	location.reload()
+			      }, q =>{
+
+			      })
+					}else{
+						swal({
+			        title: 'Error!',
+			        type: 'error', 
+			        html: `<b>${response.data.msg}</b>`,
+			        showCloseButton: true,
+			        showCancelButton: false,
+			        focusConfirm: false,
+			        confirmButtonText:'OKAY',
+			        cancelButtonText:'Cancel',
+			      })
+					}
+      	}).catch(error => {
+
+      	})
+
+
+      }, cancel => {
+
+      })
+
 		}
 	}
 })

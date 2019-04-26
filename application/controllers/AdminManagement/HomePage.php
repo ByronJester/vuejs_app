@@ -323,4 +323,26 @@ class HomePage extends CI_Controller {
     echo json_encode($res);
   }
 
+  #Cancel Cart Request
+  public function cancelCart(){
+    $msg  = "There's an error occured!";
+    $code = 0;
+
+    $cart_id = $this->input->post('cart_id');
+    $has_cancel = $this->admin->cancelCart($cart_id);
+
+    if($has_cancel){
+      $msg  = "Request Successfully Canceled!";
+      $code = 1;
+    }
+
+    $res = [
+      'msg'  => $msg,
+      'code' => $code
+    ];  
+
+    echo json_encode($res);
+  }
+
+
 }
