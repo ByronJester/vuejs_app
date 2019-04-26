@@ -12,13 +12,13 @@
   padding-bottom: 15px;
   padding-left: 5px;
   width: 170px;
-  text-decoration: none;
+  text-decoration: none; 
   font-size: 20px;
   color: white;
   border-radius: 0 5px 5px 0;
 }
 
-#mySidenav a:hover {
+#mySidenav a:hover { 
   left: 0;
 }
 

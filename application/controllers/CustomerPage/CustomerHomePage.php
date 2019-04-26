@@ -18,7 +18,7 @@ class CustomerHomePage extends CI_Controller {
 		if($this->session->userdata('logged_in')){
   		$this->load->view('templates/header');
   	  $this->load->view('customer_page/home_page'); 
-  	  $this->load->view('templates/footer');
+  	  $this->load->view('templates/footer'); 
   	}else{
       redirect(base_url());
   	}
@@ -66,14 +66,15 @@ class CustomerHomePage extends CI_Controller {
 			$pid 	= $this->input->post('id');
 			$qty  = $this->input->post('quantity');
 
-			#Check Quantity of Product
-			$item_qty = $this->customer->checkQuantity($pid);
 
-			if($item_qty['product_qty'] == 0){
+			#Get Item Data 
+			$item_data = $this->customer->getItemData($pid);
+
+			if($item_data['product_qty'] == 0){
 				$msg = "Item quantity is zero! You can't add this product to your cart";
 			}else{
 				#Add Product to Cart
-				$cart = $this->customer->addCart($uid, $pid, $qty);
+				$cart = $this->customer->addCart($uid, $pid, $item_data['item_name'], $item_data['product_prc'], $qty);
 				if($cart != ""){
 					$msg 	= "Cart Successfully Added";
 					$code = 1;

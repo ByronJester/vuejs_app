@@ -490,7 +490,7 @@ var cart_tbl = new Vue({
 		cart_body 		: [],
 		page_number 	: 0,
 		item_per_page : 10,
-		index 				: 0
+		index 				: 0,
 	},
 	created: function(){
 		this.getCart()
@@ -516,10 +516,10 @@ var cart_tbl = new Vue({
 		},
 
 		set_page: function(item){
+			this.getCart()
 			this.index 		 = item * this.item_per_page
 			this.cart_body = this.cart_body.slice(this.index, this.index + this.item_per_page)
 		},
-
 
 		acceptCart: function(id){
 			bodyFormData.set('cart_id', id)

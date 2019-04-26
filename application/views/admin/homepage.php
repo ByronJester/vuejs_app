@@ -68,7 +68,7 @@
 		<div class = "col-xs-10" style="margin-left: 10%;">
 			<div class = "col-sm-12" >
 				<div class="tab-content">
-					<div id="add_prod_tab" class="tab-pane fade in active"> 
+					<div id="add_prod_tab" class="tab-pane fade"> 
 						<div class="container">
 							<form>
 		            <div class="row" id = "product_page">
@@ -96,7 +96,7 @@
 	      	</div>
 
 
-					<div id="mng_prod_tab" class="tab-pane fade">
+					<div id="mng_prod_tab" class="tab-pane fade in active">
 						<div class="container">
 							<div class = "col-sm-12" >
 								<div class = "row" id = "prod_tbl"> 
@@ -227,6 +227,8 @@
 										<tr>
 											<th>User IDs</th>
 											<th>Product IDs</th>
+											<th>Product Name</th>
+											<th>Product Price</th>
 											<th>Cart Quantity</th>
 											<th>Status</th>
 											<th>Actions</th>
@@ -234,6 +236,8 @@
 										<tr v-for="body in cart_body">
 								      <td>{{body.user_id}}</td>
 								      <td>{{body.product_id}}</td>
+								      <td>{{body.product_name}}</td>
+								      <td>{{body.product_price}}</td>
 								      <td>{{body.qty}}</td>
 								      <td>{{body.status}}</td>
 								      <td>

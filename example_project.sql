@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2019 at 09:18 AM
+-- Generation Time: Apr 26, 2019 at 11:11 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 5.6.37
 
@@ -34,6 +34,8 @@ CREATE TABLE `cart_tbl` (
   `cart_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
+  `product_name` varchar(80) NOT NULL,
+  `product_price` varchar(50) NOT NULL,
   `qty` varchar(50) NOT NULL,
   `status` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -42,17 +44,32 @@ CREATE TABLE `cart_tbl` (
 -- Dumping data for table `cart_tbl`
 --
 
-INSERT INTO `cart_tbl` (`cart_id`, `user_id`, `product_id`, `qty`, `status`) VALUES
-(2, 6, 10, '1', 'completed'),
-(8, 6, 11, '1', 'completed'),
-(9, 6, 10, '1', 'completed'),
-(10, 6, 11, '1', 'completed'),
-(11, 6, 10, '1', 'completed'),
-(12, 6, 11, '1', 'completed'),
-(13, 6, 12, '1', 'pending'),
-(14, 6, 13, '1', 'pending'),
-(15, 6, 14, '1', 'pending'),
-(16, 6, 24, '1', 'pending');
+INSERT INTO `cart_tbl` (`cart_id`, `user_id`, `product_id`, `product_name`, `product_price`, `qty`, `status`) VALUES
+(18, 6, 14, 'Crayons', '23', '5', 'completed'),
+(19, 6, 24, 'Jackey', '2100', '3', 'completed'),
+(20, 6, 10, 'Laptop', '23000', '1', 'canceled'),
+(21, 6, 11, 'Jacket', '899', '10', 'completed'),
+(22, 6, 10, 'Laptop', '23000', '10', 'completed'),
+(23, 6, 10, 'Laptop', '23000', '50', 'completed'),
+(24, 6, 10, 'Laptop', '23000', '1', 'completed'),
+(25, 6, 10, 'Laptop', '23000', '1', 'pending'),
+(26, 6, 11, 'Jacket', '899', '1', 'pending'),
+(27, 6, 12, 'Burger', '80', '1', 'pending'),
+(28, 6, 13, 'Office Chair', '650', '1', 'pending'),
+(29, 6, 14, 'Crayons', '23', '1', 'pending'),
+(30, 6, 24, 'Jackey', '2100', '1', 'pending'),
+(31, 6, 25, 'test', '21', '1', 'pending'),
+(32, 6, 11, 'Jacket', '899', '1', 'pending'),
+(33, 6, 12, 'Burger', '80', '1', 'pending'),
+(34, 6, 13, 'Office Chair', '650', '1', 'pending'),
+(35, 6, 14, 'Crayons', '23', '1', 'pending'),
+(36, 6, 24, 'Jackey', '2100', '1', 'pending'),
+(37, 6, 31, 'test', '41', '1', 'pending'),
+(38, 6, 32, 'sad', '12', '1', 'pending'),
+(39, 6, 33, 'das', '13', '1', 'pending'),
+(40, 6, 10, 'Laptop', '23000', '1', 'pending'),
+(41, 6, 11, 'Jacket', '899', '1', 'pending'),
+(42, 6, 31, 'test', '41', '5', 'pending');
 
 -- --------------------------------------------------------
 
@@ -100,12 +117,12 @@ CREATE TABLE `product_tbl` (
 --
 
 INSERT INTO `product_tbl` (`product_id`, `item_name`, `item_category`, `date_posted`, `product_qty`, `product_prc`, `product_img`) VALUES
-(10, 'Laptop', 'Gadgets', '2019-04-26', '44', '23000', 'laptop.jpg'),
-(11, 'Jacket', 'Clothes', '2019-04-22', '47', '899', 'jacket.jpg'),
+(10, 'Laptop', 'Gadgets', '2019-04-26', '49', '23000', 'laptop.jpg'),
+(11, 'Jacket', 'Clothes', '2019-04-26', '40', '899', 'jacket.jpg'),
 (12, 'Burger', 'Food', '2019-04-22', '50', '80', 'burger.jpg'),
 (13, 'Office Chair', 'Furniture', '2019-04-16', '50', '650', 'chair.jpg'),
-(14, 'Crayons', 'School Supplies', '2019-04-16', '50', '23', 'crayons.jpg'),
-(24, 'Jackey', 'Clothes', '2019-04-23', '50', '2100', 'jacket.jpg'),
+(14, 'Crayons', 'School Supplies', '2019-04-16', '45', '23', 'crayons.jpg'),
+(24, 'Jackey', 'Clothes', '2019-04-23', '47', '2100', 'jacket.jpg'),
 (25, 'test', 'School Supplies', '2019-04-23', '21', '21', 'crayons.jpg'),
 (26, 'test', 'Gadgets', '2019-04-23', '21', '21', 'laptop.jpg'),
 (27, 'test', 'Furniture', '2019-04-23', '21', '21', 'chair.jpg'),
@@ -176,7 +193,7 @@ ALTER TABLE `users_tbl`
 -- AUTO_INCREMENT for table `cart_tbl`
 --
 ALTER TABLE `cart_tbl`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `customer_tbl`

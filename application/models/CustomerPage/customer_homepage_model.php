@@ -19,25 +19,25 @@ class customer_homepage_model extends CI_Model {
 	}
 
 	#Display All Product
-	public function getProducts(){
+	public function getProducts(){ 
 		$sql = "SELECT * FROM product_tbl";
 		$q 	 = $this->db->query($sql);
 
 		return $q->result_array();
 	}
 
-	#Check Quantity of Product
-	public function checkQuantity($pid){
-		$sql = "SELECT product_qty FROM product_tbl WHERE product_id = ?";
+	#Get Product Data
+	public function getItemData($pid){
+		$sql = "SELECT * FROM product_tbl WHERE product_id = ?";
 		$q 	 = $this->db->query($sql, [$pid]);
 
 		return $q->row_array();
 	}
 
 	#Add to Cart Product
-	public function addCart($uid, $pid, $qty){
-		$sql = "INSERT INTO cart_tbl (user_id, product_id, qty, status) VALUES (?, ?, ?, 'pending')";
-		$q 	 = $this->db->query($sql, [$uid, $pid, $qty]);
+	public function addCart($uid, $pid, $name, $prc, $qty){
+		$sql = "INSERT INTO cart_tbl (user_id, product_id, product_name, product_price, qty, status) VALUES (?, ?, ?, ?, ?, 'pending')";
+		$q 	 = $this->db->query($sql, [$uid, $pid, $name, $prc, $qty]);
 
 		return $q;
 	}
