@@ -13,7 +13,8 @@ var customer_login = new Vue({
 		middlename  : '',
 		lastname   	: '',
 		un    			: '',
-		pw 					: ''
+		pw 					: '',
+		fullname 		: ''
 	},
 	created: function(){
 
@@ -23,41 +24,54 @@ var customer_login = new Vue({
 			bodyFormData.set('un', this.un)
 			bodyFormData.set('pw', this.pw)
 
-			axios({
-				method: 'POST',
-				url: base_url + "AccountManagement/CustomerAccount/loginAccount",
-				data: bodyFormData
-			}).then(response => {
-				if(response.data.code > 0){
-					swal({
-		        title: 'Good Job!',
-		        type: 'success', 
-		        html: `<b>${response.data.msg}</b>`,
-		        showCloseButton: true,
-		        showCancelButton: false,
-		        focusConfirm: false,
-		        confirmButtonText:'OKAY',
-		        cancelButtonText:'Cancel',
-		      }).then(confirm => {
-		      	window.location = base_url + "CustomerPage/CustomerHomePage/index"
-		      }, dismiss => {
+			if(this.un == "" && this.pw == ""){
+				swal({
+	        title: 'Warning',
+	        type: 'warning', 
+	        html: `<b>All Field is Required</b>`,
+	        showCloseButton: true,
+	        showCancelButton: false,
+	        focusConfirm: false,
+	        confirmButtonText:'OKAY',
+	        cancelButtonText:'Cancel',
+	      })
+			}else{
+				axios({
+					method: 'POST',
+					url: base_url + "AccountManagement/CustomerAccount/loginAccount",
+					data: bodyFormData
+				}).then(response => {
+					if(response.data.code > 0){
+						swal({
+			        title: 'Good Job!',
+			        type: 'success', 
+			        html: `<b>${response.data.msg}</b>`,
+			        showCloseButton: true,
+			        showCancelButton: false,
+			        focusConfirm: false,
+			        confirmButtonText:'OKAY',
+			        cancelButtonText:'Cancel',
+			      }).then(confirm => {
+			      	window.location = base_url + "CustomerPage/CustomerHomePage/index"
+			      }, dismiss => {
 
-		      })
-				}else{
-					swal({
-		        title: 'Login Failed',
-		        type: 'error', 
-		        html: `<b>${response.data.msg}</b>`,
-		        showCloseButton: true,
-		        showCancelButton: false,
-		        focusConfirm: false,
-		        confirmButtonText:'OKAY',
-		        cancelButtonText:'Cancel',
-		      })
-				}
-			}).catch(error => {
+			      })
+					}else{
+						swal({
+			        title: 'Login Failed',
+			        type: 'error', 
+			        html: `<b>${response.data.msg}</b>`,
+			        showCloseButton: true,
+			        showCancelButton: false,
+			        focusConfirm: false,
+			        confirmButtonText:'OKAY',
+			        cancelButtonText:'Cancel',
+			      })
+					}
+				}).catch(error => {
 
-			})
+				})
+			}
 		},
 
 		change_image: function(e){
@@ -87,41 +101,55 @@ var customer_login = new Vue({
 			bodyFormData.set('middlename', this.middlename)
 			bodyFormData.set('lastname', this.lastname)
 
-			axios({
-				method: 'POST',
-				url: base_url + "AccountManagement/CustomerAccount/createAccount",
-				data: bodyFormData
-			}).then(response => {
-				if(response.data.code > 0){
-					swal({
-		        title: 'Good Job!',
-		        type: 'success', 
-		        html: `<b>${response.data.msg}</b>`,
-		        showCloseButton: true,
-		        showCancelButton: false,
-		        focusConfirm: false,
-		        confirmButtonText:'OKAY',
-		        cancelButtonText:'Cancel',
-		      }).then(confirm => {
-		      	location.reload()
-		      }, dismiss => {
 
-		      })
-				}else{
-					swal({
-		        title: 'Warning',
-		        type: 'warning', 
-		        html: `<b>${response.data.msg}</b>`,
-		        showCloseButton: true,
-		        showCancelButton: false,
-		        focusConfirm: false,
-		        confirmButtonText:'OKAY',
-		        cancelButtonText:'Cancel',
-		      })
-				}
-			}).catch(error => {
+			if(this.username == "" && this.password == "" && this.c_password == "" && this.email == "" && this.phone == "" && this.firstname == "" && this.middlename == "" && this.lastname == ""){
+				swal({
+	        title: 'Warning',
+	        type: 'warning', 
+	        html: `<b>All Field is Required</b>`,
+	        showCloseButton: true,
+	        showCancelButton: false,
+	        focusConfirm: false,
+	        confirmButtonText:'OKAY',
+	        cancelButtonText:'Cancel',
+	      })
+			}else{
+				axios({
+					method: 'POST',
+					url: base_url + "AccountManagement/CustomerAccount/createAccount",
+					data: bodyFormData
+				}).then(response => {
+					if(response.data.code > 0){
+						swal({
+			        title: 'Good Job!',
+			        type: 'success', 
+			        html: `<b>${response.data.msg}</b>`,
+			        showCloseButton: true,
+			        showCancelButton: false,
+			        focusConfirm: false,
+			        confirmButtonText:'OKAY',
+			        cancelButtonText:'Cancel',
+			      }).then(confirm => {
+			      	location.reload()
+			      }, dismiss => {
 
-			})
+			      })
+					}else{
+						swal({
+			        title: 'Warning',
+			        type: 'warning', 
+			        html: `<b>${response.data.msg}</b>`,
+			        showCloseButton: true,
+			        showCancelButton: false,
+			        focusConfirm: false,
+			        confirmButtonText:'OKAY',
+			        cancelButtonText:'Cancel',
+			      })
+					}
+				}).catch(error => {
+
+				})
+			}
 		}
 	},
 	components:{

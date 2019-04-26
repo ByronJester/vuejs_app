@@ -482,3 +482,97 @@ var product = new Vue({
 		'search-btn'  : submit_btn
 	}
 })
+
+
+var cart_tbl = new Vue({
+	el: '#mng_cart',
+	data: {
+		cart_body 		: [],
+		page_number 	: 0,
+		item_per_page : 10,
+		index 				: 0
+	},
+	created: function(){
+		this.getCart()
+	},
+	methods:{
+		getCart: function(){
+			axios({
+				method: 'POST',
+				url: base_url + "AdminManagement/HomePage/getCart"
+			}).then(response => {
+				var page = response.data.length / this.item_per_page
+
+				if((page - Math.floor(page)) != 0 ){
+ 					this.page_number = Math.trunc(page) + 1
+				}else{
+					this.page_number = page
+				}
+
+				this.cart_body = response.data.slice(this.index, this.index + this.item_per_page)
+			}).catch(error => {
+
+			})
+		},
+
+		set_page: function(item){
+			this.index 		 = item * this.item_per_page
+			this.cart_body = this.cart_body.slice(this.index, this.index + this.item_per_page)
+		},
+
+
+		acceptCart: function(id){
+			bodyFormData.set('cart_id', id)
+
+			swal({
+        title: 'Warning!',
+        type: 'warning', 
+        html: `<b>Are you sure you want to accept this request?</b>`,
+        showCloseButton: true,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText:'OKAY',
+        cancelButtonText:'Cancel',
+      }).then(confirm => {
+      	axios({
+					method: 'POST',
+					url: base_url + "AdminManagement/HomePage/acceptCart",
+					data: bodyFormData
+				}).then(response =>{
+					console.log(response.data.code)
+					if(response.data.code > 0){
+						swal({
+			        title: 'Good Job!',
+			        type: 'success', 
+			        html: `<b>${response.data.msg}</b>`,
+			        showCloseButton: true,
+			        showCancelButton: false,
+			        focusConfirm: false,
+			        confirmButtonText:'OKAY',
+			        cancelButtonText:'Cancel',
+			      }).then(x => {
+			      	location.reload()
+			      }, q =>{
+
+			      })
+					}else{
+						swal({
+			        title: 'Error!',
+			        type: 'error', 
+			        html: `<b>${response.data.msg}</b>`,
+			        showCloseButton: true,
+			        showCancelButton: false,
+			        focusConfirm: false,
+			        confirmButtonText:'OKAY',
+			        cancelButtonText:'Cancel',
+			      })
+					}
+				}).catch(error => {
+
+				})
+      }, cancel =>{
+
+      })
+		}
+	}
+})

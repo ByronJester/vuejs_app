@@ -1,3 +1,43 @@
+<style type="text/css">
+#mySidenav a {
+  position: absolute;
+  left: -100px;
+  transition: 0.3s;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-left: 5px;
+  width: 150px;
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+  border-radius: 0 5px 5px 0;
+}
+ 
+#mySidenav a:hover {
+  left: 0;
+}
+
+#shop {
+  top: 0px;
+  background-color: #4CAF50;
+}
+
+#blog {
+  top: 60px;
+  background-color: #2196F3;
+}
+
+#cart {
+  top: 120px;
+  background-color: #f44336;
+}
+
+#analytics {
+  top: 180px;
+  background-color: #555
+}
+</style>
+
 <body>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -20,8 +60,8 @@
 			<div id="mySidenav" class="sidenav">
 				<a data-toggle="tab" href="#add_prod_tab" id="shop">Add</a>
 			  <a data-toggle="tab" href="#mng_prod_tab" id="blog">Manange</a>
-			  <a data-toggle="tab" href="#" id="projects">Projects</a>
-			  <a data-toggle="tab"href="#" id="contact">Contact</a>
+			  <a data-toggle="tab" href="#mng_cart" id="cart">Cart</a>
+			  <a data-toggle="tab"href="#" id="analytics">Analytics</a>
 			</div>
 		</div>
 
@@ -170,6 +210,41 @@
 									</div>
 								</div>
 							</form>
+						</div>
+	      	</div> 
+
+
+	      	<div id="mng_cart" class="tab-pane fade">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="well well-sm">
+
+									<ul class="pagination" v-for = "item in page_number">
+								    <li><a href="#" v-on:click.prevent.stop = "set_page((item - 1 ))">{{item}}</a></li>
+								  </ul>
+
+									<table>
+										<tr>
+											<th>User IDs</th>
+											<th>Product IDs</th>
+											<th>Cart Quantity</th>
+											<th>Status</th>
+											<th>Actions</th>
+										</tr>
+										<tr v-for="body in cart_body">
+								      <td>{{body.user_id}}</td>
+								      <td>{{body.product_id}}</td>
+								      <td>{{body.qty}}</td>
+								      <td>{{body.status}}</td>
+								      <td>
+								      	<span class="btn btn-primary glyphicon glyphicon-ok" v-on:click.prevent = "acceptCart(body.cart_id)"></span>
+								      	<span class="btn btn-danger  glyphicon glyphicon-remove"></span>
+								      </td>
+							    	</tr>
+									</table>
+								</div>
+							</div>
+							
 						</div>
 	      	</div> 
 

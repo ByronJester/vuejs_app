@@ -281,7 +281,46 @@ class HomePage extends CI_Controller {
 
       echo json_encode($product);
     }
+  }
 
+  #Display Product in Cart
+  public function getCart(){
+    $cart = $this->admin->getCart();
+
+    echo json_encode($cart);
+  }
+
+  #Accept Cart Request
+  public function acceptCart(){
+    $msg  = "There's an error accepting cart reauest!";
+    $code = 0;
+
+    $cart_id     = $this->input->post('cart_id');
+    $cartData    = $this->admin->cartData($cart_id);
+    $productData = $this->admin->productData($cartData['product_id']);
+
+    if($productData != ""){
+      #Update Quantity of Product
+      $qty       = $productData['product_qty'] - $cartData['qty'];
+      $quantity  = $this->admin->qtyUpdate($qty, $productData['product_id']);
+
+      if($quantity){
+        #Update the Status of Cart
+        $cart_status  = $this->admin->statsUpdate($cart_id);
+
+        if($cart_status){
+          $msg  = "Cart Accepted Successfully";
+          $code = 1;
+        }
+      }
+    }
+
+    $res = [
+      'msg'   => $msg,
+      'code'  => $code
+    ];
+
+    echo json_encode($res);
   }
 
 }

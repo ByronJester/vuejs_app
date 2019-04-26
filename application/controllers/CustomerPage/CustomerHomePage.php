@@ -23,4 +23,83 @@ class CustomerHomePage extends CI_Controller {
       redirect(base_url());
   	}
 	}
+
+
+	#Display Customer Fullname
+	public function getName(){
+		$id = $this->session->userdata('id');
+		$fullname = $this->customer->getName($id);
+
+		$res = [
+			'fullname' => $fullname['first_name'] . " " . $fullname['middle_name'] . " " . $fullname['last_name']
+		];
+
+		echo json_encode($res);
+	}
+
+	#Display All Products
+	public function getProducts(){
+		$all_product = $this->customer->getProducts();
+
+		echo json_encode($all_product);
+	}
+
+	#Add to Cart Product
+	public function addCart(){
+		$msg	= "Error adding this product to your cart! Please try again";
+		$code = 0;
+
+		$config = [
+			[
+				'field' => 'quantity',
+				'lable' => 'Item Quantity',
+				'rules' => 'trim|required|htmlspecialchars|is_natural_no_zero'
+			]
+		];
+
+		$this->form_validation->set_rules($config);
+
+		if($this->form_validation->run() === false){
+			$msg = validation_errors();
+		}else{
+			$uid 	= $this->session->userdata('id');
+			$pid 	= $this->input->post('id');
+			$qty  = $this->input->post('quantity');
+
+			#Check Quantity of Product
+			$item_qty = $this->customer->checkQuantity($pid);
+
+			if($item_qty['product_qty'] == 0){
+				$msg = "Item quantity is zero! You can't add this product to your cart";
+			}else{
+				#Add Product to Cart
+				$cart = $this->customer->addCart($uid, $pid, $qty);
+				if($cart != ""){
+					$msg 	= "Cart Successfully Added";
+					$code = 1;
+				}else{
+					$msg 	= "Error adding this product to your cart! Please try again";
+				}
+			}
+
+		}
+
+		$res = [
+			'msg' 	=> $msg,
+			'code'	=> $code
+		];
+
+		echo json_encode($res);
+	}
+
+	#Select Product by Category
+	public function selectCategory(){
+		$categ = $this->input->post('categ');
+
+		$filter = $this->customer->selectCategory($categ);
+
+		echo json_encode($filter);
+
+	}
+
 }

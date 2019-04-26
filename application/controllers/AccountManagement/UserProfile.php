@@ -91,7 +91,6 @@ class UserProfile extends CI_Controller {
     $res = [
       'id'        => $user_profile['id'],
       'username'  => $user_profile['username'],
-      // 'password'  => $user_profile['password'],
       'fullname'  => $user_profile['firstname'] . " " . $user_profile['middlename'] . " " . $user_profile['lastname']
     ];
 

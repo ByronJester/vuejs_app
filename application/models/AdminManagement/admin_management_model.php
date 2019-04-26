@@ -29,7 +29,7 @@ class admin_management_model extends CI_Model {
 	#Delete Product
 	public function deleteProduct($id){
 		$sql = "DELETE FROM product_tbl WHERE product_id = ?";
-		$q   = $this->db->query($sql, [$id]);
+		$q   = $this->db->query($sql, [$id]); 
 
 		if($q){
 			return true;
@@ -77,6 +77,47 @@ class admin_management_model extends CI_Model {
 
 		return $q->result_array();
 	}
+
+	#Display Product in Cart
+  public function getCart(){
+    $sql = "SELECT * FROM cart_tbl WHERE status = 'pending'";
+    $q 	 = $this->db->query($sql);
+
+    return $q->result_array();
+  }
+
+
+  #Get Cart Data
+  public function cartData($cart_id){
+    $sql = "SELECT * FROM cart_tbl WHERE cart_id = ?";
+    $q 	 = $this->db->query($sql, [$cart_id]);
+
+    return $q->row_array();
+  }
+
+  #Get Product Data
+  public function productData($product_id){
+    $sql = "SELECT * FROM product_tbl WHERE product_id = ?";
+    $q 	 = $this->db->query($sql, [$product_id]);
+
+    return $q->row_array();
+  }
+
+  #Update Product Quantity
+  public function qtyUpdate($qty, $id){
+  	$sql = "UPDATE product_tbl SET product_qty = ? WHERE product_id = ?";
+  	$q 	 = $this->db->query($sql, [$qty, $id]);
+
+  	return $q;
+  }
+
+  #Update Cart Status
+  public function statsUpdate($cart_id){
+  	$sql = "UPDATE cart_tbl SET status = 'completed' WHERE cart_id = ?";
+  	$q 	 = $this->db->query($sql, [$cart_id]);
+
+  	return $q;
+  }
 
 
 }

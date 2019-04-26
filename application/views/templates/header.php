@@ -19,44 +19,6 @@
 </head>
 
 <style>
-#mySidenav a {
-  position: absolute;
-  left: -100px;
-  transition: 0.3s;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 5px;
-  width: 150px;
-  text-decoration: none;
-  font-size: 20px;
-  color: white;
-  border-radius: 0 5px 5px 0;
-}
-
-#mySidenav a:hover {
-  left: 0;
-}
-
-#shop {
-  top: 0px;
-  background-color: #4CAF50;
-}
-
-#blog {
-  top: 60px;
-  background-color: #2196F3;
-}
-
-#projects {
-  top: 120px;
-  background-color: #f44336;
-}
-
-#contact {
-  top: 180px;
-  background-color: #555
-}
-
 .reg {
     width: 100%;
     height: 44px; 
