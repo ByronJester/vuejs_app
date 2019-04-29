@@ -36,6 +36,10 @@
   top: 180px;
   background-color: #555
 }
+
+.current {
+  color: red;
+}
 </style>
 
 <body>
@@ -139,8 +143,8 @@
 											      <td>{{row.item_name}}</td>
 											      <td>{{row.item_category}}</td>
 											      <td>{{row.date_posted}}</td>
-											      <td>{{row.product_qty}}</td>
-											      <td>{{row.product_prc}}</td>
+											      <td>{{row.product_qty}} pcs.</td>
+											      <td>{{row.product_prc | numberWithCommas}}</td>
 											      <td>
 											      	<img :src= `<?php echo base_url()?>uploads/${row.product_img}` class = "tbl-img">
 											      </td>
@@ -220,7 +224,11 @@
 								<div class="well well-sm">
 
 									<ul class="pagination" v-for = "item in page_number">
-								    <li><a href="#" v-on:click.prevent.stop = "set_page((item - 1 ))">{{item}}</a></li>
+								    <li>
+								    	<a href="#" v-on:click.prevent.stop = "set_page((item - 1 ))">
+								    		{{item}}
+								  		</a>
+										</li>
 								  </ul>
 
 									<table>
@@ -237,7 +245,7 @@
 								      <td>{{body.user_id}}</td>
 								      <td>{{body.product_id}}</td>
 								      <td>{{body.product_name}}</td>
-								      <td>₱ {{body.product_price}}</td>
+								      <td>{{body.product_price | numberWithCommas}}</td>
 								      <td>{{body.qty}} pcs.</td>
 								      <td>{{body.status}}</td>
 								      <td>

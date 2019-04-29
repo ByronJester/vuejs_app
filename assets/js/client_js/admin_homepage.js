@@ -16,7 +16,7 @@ var display_name = new Vue({
 			}).catch(error =>{
 				console.log("Error:" + error)
 			})
-		}
+		} 
 	}
 })
 
@@ -463,6 +463,11 @@ var product = new Vue({
 			})
 		}
 	},
+	filters:{
+		numberWithCommas: function(price){
+			return '₱ ' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+	},
 	components :{
 		'item-name'		: text_input,
 		'list-product': list_input,
@@ -481,7 +486,7 @@ var cart_tbl = new Vue({
 		cart_body 		: [],
 		page_number 	: 0,
 		item_per_page : 10,
-		index 				: 0,
+		index 				: 0
 	},
 	created: function(){
 		this.getCart()
@@ -613,6 +618,11 @@ var cart_tbl = new Vue({
 
       })
 
+		}
+	},
+	filters:{
+		numberWithCommas: function(price){
+			return '₱ ' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 		}
 	}
 })
