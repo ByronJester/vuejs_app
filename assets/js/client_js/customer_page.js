@@ -126,6 +126,8 @@ var shop_page = new Vue({
 					data: bodyFormData
 				}).then(response =>{
 					if(response.data.code > 0){
+						this.getProducts()
+						this.quantity = ""
 						swal({
 			        title: 'Good Job!',
 			        type: 'success', 
@@ -135,10 +137,6 @@ var shop_page = new Vue({
 			        focusConfirm: false,
 			        confirmButtonText:'OKAY',
 			        cancelButtonText:'Cancel',
-			      }).then(confirm =>{
-			      	location.reload()
-			      }, cancel => {
-
 			      })
 					}else{
 						swal({

@@ -78,6 +78,7 @@ var admin_profile = new Vue({
 					}).then(response =>{
 						if(response.data.code > 0){
 							admin_profile.change_password = ""
+							this.getPassword()
 		          swal({
 				        title: 'Great Job!',
 				        type: 'success', 
@@ -87,10 +88,6 @@ var admin_profile = new Vue({
 				        focusConfirm: false,
 				        confirmButtonText:'OKAY',
 				        cancelButtonText:'Cancel',
-				      }).then(success => {
-				      	location.reload()
-				      }, cancel => {
-
 				      })
 		        }else{
 		        	admin_profile.change_password = ""
@@ -355,6 +352,7 @@ var product = new Vue({
 					url: base_url + "AdminManagement/Homepage/deleteProduct",
 					data: bodyFormData
 				}).then(response => {
+					this.get_product()
 					if(response.data.code > 0){
 						swal({
 			        title: 'Good Job!',
@@ -365,10 +363,6 @@ var product = new Vue({
 			        focusConfirm: false,
 			        confirmButtonText:'OKAY',
 			        cancelButtonText:'Cancel',
-			      }).then(r =>{
-			      	location.reload()
-			      },x =>{
-
 			      })
 					}else{
 						swal({
@@ -441,6 +435,7 @@ var product = new Vue({
 				data: bodyFormData
 			}).then(result => {
 				if(result.data.code > 0){
+					this.get_product()
 					swal({
 		        title: 'Good Job!',
 		        type: 'success', 
@@ -450,10 +445,6 @@ var product = new Vue({
 		        focusConfirm: false,
 		        confirmButtonText:'OKAY',
 		        cancelButtonText:'Cancel',
-		      }).then(response =>{
-		      	location.reload()
-		      }, dismiss =>{
-
 		      })
 				}else{
 					swal({
@@ -540,19 +531,16 @@ var cart_tbl = new Vue({
 					data: bodyFormData
 				}).then(response =>{
 					if(response.data.code > 0){
+						this.getCart()
 						swal({
 			        title: 'Good Job!',
 			        type: 'success', 
 			        html: `<b>${response.data.msg}</b>`,
-			        showCloseButton: true,
+			        showCloseButton: false,
 			        showCancelButton: false,
 			        focusConfirm: false,
 			        confirmButtonText:'OKAY',
 			        cancelButtonText:'Cancel',
-			      }).then(x => {
-			      	location.reload()
-			      }, q =>{
-
 			      })
 					}else{
 						swal({
@@ -593,19 +581,16 @@ var cart_tbl = new Vue({
       		data: bodyFormData
       	}).then(response =>{
       		if(response.data.code > 0){
+      			this.getCart()
 						swal({
 			        title: 'Done!',
 			        type: 'success', 
 			        html: `<b>${response.data.msg}</b>`,
-			        showCloseButton: true,
+			        showCloseButton: false,
 			        showCancelButton: false,
 			        focusConfirm: false,
 			        confirmButtonText:'OKAY',
 			        cancelButtonText:'Cancel',
-			      }).then(x => {
-			      	location.reload()
-			      }, q =>{
-
 			      })
 					}else{
 						swal({
