@@ -92,7 +92,7 @@ var shop_page = new Vue({
 		setPage: function(item){
 			if(this.categ == ''){
 				this.getProducts()
-			}else if(this.categ != ''){
+			}else{
 				this.selectCategory()
 			}
 			
@@ -166,7 +166,51 @@ var shop_page = new Vue({
 			})
 		}
 	},
+	filters:{
+		numberWithCommas: function(price){
+			return '₱ ' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+		}
+	},
 	components: {
 		'categ' : list_input
+	}
+})
+
+
+
+
+var cart_notification = new Vue({
+	el: '#cart_notif',
+	data:{
+		notif 	: '',
+		seen 		: true
+	},
+	created: function(){
+		this.getCompletedCart() 
+	},
+	methods:{
+		getCompletedCart: function(){
+
+			axios({
+				method: 'POST',
+				url: base_url + "CustomerPage/CustomerHomePage/getCompletedCart"
+			}).then(response => {
+				this.notif = response.data.length
+				if(this.notif === 0){
+					this.seen = false
+				}
+			}).catch(error =>{
+
+			})
+		},
+
+		viewNotif: function(){
+			this.notif = 0
+			this.seen  = false
+		}
+	},
+
+	filters:{
+
 	}
 })

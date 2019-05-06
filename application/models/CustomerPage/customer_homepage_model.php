@@ -6,7 +6,7 @@
 |	DAte Created   	:	 April 24, 2019
 |	Last Updated 		:  April 24, 2019
 |	Last update by  :  Byron Jester Malvar Manalo 
-*/
+*/ 
 defined('BASEPATH') OR exit('No ');
 class customer_homepage_model extends CI_Model {
 
@@ -49,6 +49,15 @@ class customer_homepage_model extends CI_Model {
 
 		return $q->result_array();
 
+	}
+
+
+	#Get Completed Cart
+	public function getCompletedCart($id){
+		$sql = "SELECT * FROM cart_tbl WHERE user_id = ?";
+		$q 	 = $this->db->query($sql, [$id]);
+
+		return $q->result_array();
 	}
 
 }

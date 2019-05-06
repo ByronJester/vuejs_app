@@ -17,12 +17,12 @@ class CustomerHomePage extends CI_Controller {
 	public function index(){
 		if($this->session->userdata('logged_in')){
   		$this->load->view('templates/header');
-  	  $this->load->view('customer_page/home_page'); 
+  	  $this->load->view('customer_page/home_page');  
   	  $this->load->view('templates/footer'); 
   	}else{
       redirect(base_url());
   	}
-	}
+	} 
 
 
 	#Display Customer Fullname
@@ -71,7 +71,9 @@ class CustomerHomePage extends CI_Controller {
 			$item_data = $this->customer->getItemData($pid);
 
 			if($item_data['product_qty'] == 0){
-				$msg = "Item quantity is zero! You can't add this product to your cart";
+				$msg = "Product original quantity is zero! You can't add this product to your cart";
+			}else if($qty > $item_data['product_qty']){
+				$msg = "The quantity you want is higher than product original quantity";
 			}else{
 				#Add Product to Cart
 				$cart = $this->customer->addCart($uid, $pid, $item_data['item_name'], $item_data['product_prc'], $qty);
@@ -101,6 +103,15 @@ class CustomerHomePage extends CI_Controller {
 
 		echo json_encode($filter);
 
+	}
+
+	#Get Completed Cart
+	public function getCompletedCart(){
+		$id = $this->session->userdata('id');
+
+		$has_completed = $this->customer->getCompletedCart($id);
+
+		echo json_encode($has_completed);
 	}
 
 }

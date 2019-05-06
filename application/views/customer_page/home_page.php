@@ -25,7 +25,7 @@
 #my_shop {
   top: 20px;
   background-color: #4CAF50;
-}
+} 
 
 #my_cart {
   top: 80px;
@@ -66,6 +66,11 @@ span{
 	background-color: #0abde3;
 }
 
+.glyphicon-globe{
+	width: 49%;
+	font-size: 20px;
+}
+
 .prod{
 	width: 100%;
 	text-align: center;
@@ -87,6 +92,35 @@ span{
 }
 
 
+.notification {
+  /*background-color: #079992;*/
+  color: white;
+  text-decoration: none;
+  padding: 15px 26px;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+  opacity: 0.9;
+}
+
+.notification:hover {
+  background: red;
+}
+
+.notification .badge {
+  position: absolute;
+  top: -15px;
+  right: -25px;
+  padding: 5px 10px;
+  border-radius: 100%;
+  background-color: red;
+  color: white;
+}
+
+.current {
+  color: red;
+}
+
 </style>
 <body>
 
@@ -97,6 +131,15 @@ span{
       	<b v-html = "fullname"></b>
       </a>
     </div>
+    <ul class="nav navbar-nav" id = "cart_notif">
+      <li>
+      	<a class="notification" href = "" v-on:click.prevent.stop = "viewNotif">
+	      	<span class="glyphicon glyphicon-globe">
+	      	<span class="badge" v-if="seen">{{notif}}</span>
+	      	</span>
+      	</a>
+    	</li>
+    </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href= "<?php echo base_url()?>AccountManagement/CustomerAccount/logout"><span class="glyphicon glyphicon-log-out"></span>
       	<b>Logout</b></a>
@@ -124,7 +167,11 @@ span{
 						<div class="col-sm-12">
 							<div class="col-sm-8">
 								<ul class="pagination" v-for = "page in page">
-							    <li><a href="#" v-on:click.prevent.stop = "setPage(page - 1)">{{page}}</a></li>
+							    <li>
+							    	<a href="#" v-on:click.prevent.stop = "setPage(page - 1)">
+							    		{{page}}
+							    	</a>
+							    </li>
 							  </ul>
 							</div>
 
@@ -138,7 +185,7 @@ span{
 										<div class="col-sm-12">
 											<img :src=`<?php echo base_url()?>/uploads/${item.product_img}` style = "height: 90px; margin-bottom: 5px" >
 											<div class = "well well-sm prod">{{item.item_name}}</div>
-											<div class = "well well-sm prod">₱ {{item.product_prc}} </div>
+											<div class = "well well-sm prod">{{item.product_prc | numberWithCommas }} </div>
 										</div>
 									</div>
 									
@@ -173,7 +220,7 @@ span{
 
 								        		<div class="col-sm-6">
 								        			<div class = "well well-sm view_prod"> {{category}}</div>
-								        			<div class = "well well-sm view_prod">₱ {{price}}</div>
+								        			<div class = "well well-sm view_prod">{{price | numberWithCommas }}</div>
 								        			<div class = "well well-sm view_prod">{{qty}} pcs.</div>
 								        		</div>
 							        		</div>
